@@ -4,7 +4,7 @@ import type { CinemaPromptRequestDto, CinemaPromptResponseDto, CinemaStatusDto }
 // Axios instance configured with defaults
 const apiClient = axios.create({
   baseURL: '',
-  timeout: 45000, // 45s for LLM inference + MCP tool execution
+  timeout: 120000, // 120s for local Ollama LLM inference + MCP tool execution
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
