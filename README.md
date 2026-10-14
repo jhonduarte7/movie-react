@@ -1,6 +1,6 @@
 # 🎬 Cinema AX — Movie React Frontend
 
-> **Interfaz web moderna, reactiva y conversacional para el Asistente de Cine con Spring AI y Model Context Protocol (MCP).**
+> **Modern, reactive, and conversational user interface for the Cinema Assistant powered by Spring AI and the Model Context Protocol (MCP).**
 
 [![React](https://img.shields.io/badge/React-19.0-61dafb?style=flat&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
@@ -10,167 +10,183 @@
 
 ---
 
-## 📖 Contexto del Proyecto
+## 📖 Project Overview & Ecosystem Context
 
-**Cinema AX (`movie-react`)** es la aplicación cliente frontend diseñada para interactuar de forma intuitiva y natural con el ecosistema de inteligencia artificial para cines basado en **Spring AI** y **Model Context Protocol (MCP)**.
+**Cinema AX (`movie-react`)** is the frontend client designed to provide a fluid, conversational interface for cinema inquiries, movie schedules, ratings, and personalized recommendations powered by generative AI and real-time database tools.
 
-### 🌐 El Ecosistema Completo
+### 🌐 The Complete Ecosystem Architecture
 
-Este proyecto forma parte de una arquitectura modular de tres capas:
+This project is part of a 3-tier distributed architecture:
 
 ```mermaid
 flowchart LR
-    A["💻 Frontend Web<br/><b>movie-react</b><br/><i>(Puerto 5174)</i>"]
-    B["⚙️ Backend Spring AI<br/><b>cinema-mcp-client</b><br/><i>(Puerto 8091)</i>"]
-    C["🦙 Ollama<br/><b>llama3.1</b><br/><i>(LLM Local)</i>"]
-    D["🎟️ MCP Server<br/><b>movie-mcp-server</b><br/><i>(Herramientas de Cine)</i>"]
+    A["💻 Frontend Web<br/><b>movie-react</b><br/><i>(Port 5174)</i>"]
+    B["⚙️ Backend Orchestrator<br/><b>cinema-mcp-client</b><br/><i>(Port 8091)</i>"]
+    C["🦙 Ollama<br/><b>llama3.1</b><br/><i>(Local LLM)</i>"]
+    D["🎟️ MCP Server<br/><b>movie-mcp-server</b><br/><i>(Cinema Tools Provider)</i>"]
 
     A <-->|"REST API /api/cinema/*"| B
-    B <-->|"Inferencia"| C
-    B <-->|"Protocolo MCP"| D
+    B <-->|"Inference"| C
+    B <-->|"Model Context Protocol (MCP)"| D
 ```
 
-1. **[movie-react](https://github.com/jhonduarte7/movie-react)** *(este repositorio)*: Interfaz web de usuario construida con React 19, TypeScript, Tailwind CSS v4 y Zustand.
-2. **[cinema-mcp-client](https://github.com/jhonduarte7/cinema-mcp-client)**: Backend orquestador en Spring Boot 3.x y Spring AI que gestiona la conversación con Ollama (`llama3.1`) y consume las herramientas del servidor MCP.
-3. **[movie-mcp-server](https://github.com/jhonduarte7/movie-mcp-server)**: Servidor MCP independiente que expone herramientas de consulta a base de datos de películas (catálogo, salas, horarios, clasificaciones y directores).
+1. **[movie-react](https://github.com/jhonduarte7/movie-react)** *(this repository)*: Conversational single-page application built with React 19, TypeScript, Tailwind CSS v4, and Zustand.
+2. **[cinema-mcp-client](https://github.com/jhonduarte7/cinema-mcp-client)**: Backend orchestrator built with Spring Boot 3.x and Spring AI that connects to Ollama (`llama3.1`) and delegates cinema tool execution via MCP.
+3. **[movie-mcp-server](https://github.com/jhonduarte7/movie-mcp-server)**: Independent Model Context Protocol (MCP) server providing access to cinema catalogs, theater halls, active showtimes, genres, and audience ratings.
 
 ---
 
-## ✨ Características Principales
+## ✨ Key Features
 
-- 🤖 **Asistente Conversacional Inteligente**: Envía preguntas en lenguaje natural para consultar horarios, películas en cartelera, sinopsis y recomendaciones.
-- 🎯 **Filtros de Preferencias**: Posibilidad de filtrar o sesgar las consultas por género (*Sci-Fi, Acción, Animación, Drama, Comedia, Terror*) o por edad de audiencia (*Familiar, PG-13, Adultos*).
-- ⚡ **Consultas Rápidas en 1 Clic**: Tarjetas de acceso directo para consultar horarios de hoy, películas más valoradas, recomendaciones de ciencia ficción y contenido familiar.
-- 📊 **Respuestas Enriquecidas (Markdown & Tablas)**: Renderizado dinámico de tablas de horarios, salas de proyección (IMAX, Dolby Atmos), listas y formatos de cine.
-- 🌙 **Tema Claro / Oscuro**: Selector de apariencia (Dark, Light o Sincronización con el Sistema) con transiciones suaves y persistencia en `localStorage`.
-- 🔌 **Indicador de Conexión en Tiempo Real**: Badge dinámico que monitoriza el estado del backend Spring Boot (`http://localhost:8091`) y el modelo activo (`llama3.1`).
-- 🛡️ **Modo Standby / Simulación Offline**: Si el backend de Spring Boot aún no está iniciado, la interfaz no se rompe; activa un modo de previsualización con datos simulados realistas para pruebas rápidas de UI.
-
----
-
-## 🛠️ Stack Tecnológico
-
-- **Frontend Core**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Empaquetador y Dev Server**: [Vite 6](https://vitejs.dev/) con proxy inverso automático para `/api`
-- **Estilos**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **Gestión de Estado**: [Zustand 5](https://zustand.docs.pmnd.rs/)
-- **Cliente HTTP**: [Axios](https://axios-http.com/) con control de timeouts y resiliencia
-- **Renderizado Markdown**: `react-markdown` + `remark-gfm`
-- **Iconos**: [Lucide React](https://lucide.dev/)
+- 🤖 **Conversational Cinema Assistant**: Ask questions in natural language regarding current screenings, release years, synopses, and directors.
+- 🎯 **Preference Filters & Biasing**: Easily filter or bias recommendations by genre (*Sci-Fi, Action, Animation, Drama, Comedy, Horror*) or target audience (*Family/All Audiences, PG-13, Adults*).
+- ⚡ **One-Click Quick Inquiries**: Fast-action cards for instant queries: today's showtimes, top-rated films, sci-fi recommendations, and family-friendly movies.
+- 📊 **Rich Markdown & Structured Tables**: Renders formatted assistant responses including markdown tables (movie titles, auditoriums, time slots, formats like IMAX and Dolby Atmos).
+- 🌙 **Dark / Light / System Theme**: Fully responsive theme switcher with smooth transitions, OS preference detection, and `localStorage` persistence.
+- 🔌 **Live MCP Connection Indicator**: Dynamic status badge that constantly monitors backend health (`http://localhost:8091`) and active LLM model (`llama3.1`).
+- 🛡️ **Graceful Standby & Simulation Fallback**: If the Spring Boot backend is temporarily offline, the UI provides realistic preview responses and a helpful notice without crashing.
 
 ---
 
-## 🚀 Guía de Instalación y Ejecución
+## 🛠️ Technology Stack
 
-### 1. Requisitos Previos
+| Layer | Technology | Details |
+| :--- | :--- | :--- |
+| **UI Framework** | [React 19](https://react.dev/) | Functional components with strict TypeScript types |
+| **Language** | [TypeScript 5.7+](https://www.typescriptlang.org/) | Strict type checking without `any` |
+| **Bundler & Dev Server** | [Vite 6](https://vitejs.dev/) | Ultra-fast HMR and automated `/api` reverse proxy |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | High-performance CSS engine (`@tailwindcss/vite`) |
+| **State Management** | [Zustand 5](https://zustand.docs.pmnd.rs/) | Minimalist store for chat history and theme preferences |
+| **HTTP Client** | [Axios](https://axios-http.com/) | Configured with timeout resilience and error mapping |
+| **Markdown Rendering** | `react-markdown` + `remark-gfm` | Formats lists, bold tags, and markdown tables |
+| **Icons** | [Lucide React](https://lucide.dev/) | Clean, accessible SVG iconography |
 
-- **Node.js**: Versión 18.0.0 o superior instalada.
-- **npm**: Versión 9 o superior (incluido con Node.js).
-- *(Opcional)*: Backend **`cinema-mcp-client`** corriendo en el puerto `8091` para respuestas reales de IA.
+---
 
-### 2. Clonar el Repositorio
+## 🚀 Getting Started
+
+### 1. Prerequisites
+
+- **Node.js**: `v18.0.0` or higher.
+- **npm**: `v9.0.0` or higher (bundled with Node.js).
+- *(Optional)*: **`cinema-mcp-client`** Spring Boot backend running on port `8091` for live AI responses.
+
+### 2. Clone Repository
 
 ```bash
 git clone https://github.com/jhonduarte7/movie-react.git
 cd movie-react
 ```
 
-### 3. Instalar Dependencias
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Configurar Variables de Entorno
+### 4. Configure Environment Variables
 
-Copia el archivo de ejemplo o ajusta `.env`:
+Copy the example environment file or configure `.env`:
 
 ```bash
 cp .env.example .env
 ```
 
-Contenido de `.env`:
+Default configuration in `.env`:
 
 ```env
-# URL base del Backend Spring Boot Cinema MCP Client (puerto 8091)
+# Spring Boot Cinema MCP Client URL (default port 8091)
 VITE_API_TARGET=http://localhost:8091
 VITE_APP_TITLE=Cinema AX - Cinema MCP Client
 ```
 
-### 5. Iniciar Servidor de Desarrollo
+### 5. Start Development Server
 
 ```bash
 npm run dev
 ```
 
-La aplicación se abrirá en tu navegador en:
+Open your browser at:
 👉 **`http://localhost:5174/`**
 
-> **Nota sobre el puerto**: Se utiliza el puerto `5174` por defecto para evitar colisiones con otros servidores frontend locales en el `5173`.
+> **Port Notice**: Defaults to port `5174` to prevent collisions if standard port `5173` is occupied.
 
-### 6. Compilar para Producción
+### 6. Build for Production
 
 ```bash
-# Comprobación de tipos TypeScript y empaquetado optimizado
+# Type check and build optimized bundle
 npm run build
 
-# Previsualizar la compilación de producción localmente
+# Preview production build locally
 npm run preview
 ```
 
 ---
 
-## 📡 Integración de Endpoints (Spring AI)
+## 📡 Backend API Integration
 
-El frontend se comunica con los siguientes endpoints del backend Spring Boot:
+The frontend connects to the following endpoints exposed by `cinema-mcp-client`:
 
-| Endpoint | Método | Descripción |
+| Endpoint | Method | Description |
 | :--- | :--- | :--- |
-| `/api/cinema/ask` | `POST` | Envía la pregunta en lenguaje natural y la preferencia del usuario opcional. |
-| `/api/cinema/recommend` | `GET` | Consulta recomendaciones filtradas por parámetro `genre`. |
-| `/api/cinema/status` | `GET` | Health check del backend y validación de conexión con herramientas MCP. |
+| `/api/cinema/ask` | `POST` | Sends natural language prompt with optional `userPreference`. |
+| `/api/cinema/recommend` | `GET` | Retrieves movie recommendations filtered by `genre` query parameter. |
+| `/api/cinema/status` | `GET` | Health check endpoint validating connection to backend and MCP tools. |
+
+### Development Reverse Proxy
+In development mode, Vite automatically proxies all requests from `/api/*` to the address defined in `VITE_API_TARGET` (`http://localhost:8091`), eliminating CORS restrictions.
 
 ---
 
-## 📁 Estructura del Código Fuente
+## 📁 Project Structure
 
 ```
-src/
-├── components/
-│   ├── chat/
-│   │   ├── ChatFeed.tsx        # Contenedor de mensajes y scroll automático
-│   │   ├── ChatInput.tsx       # Barra de entrada de texto, selector de género y atajos
-│   │   ├── ChatMessage.tsx     # Tarjeta de mensaje con soporte Markdown y tablas
-│   │   └── QuickPrompts.tsx    # Tarjetas de sugerencias rápidas
-│   └── common/
-│       ├── Header.tsx          # Barra superior con logo, estado y tema
-│       ├── StatusBadge.tsx     # Píldora de estado (Online / Offline / Standby)
-│       └── ThemeToggle.tsx     # Selector de modo claro / oscuro / sistema
-├── lib/
-│   └── utils.ts                # Utilidades de clases (clsx + tailwind-merge)
-├── services/
-│   └── cinemaApi.ts            # Cliente Axios tipado para la API de cine
-├── stores/
-│   ├── chatStore.ts            # Store Zustand de conversación y modo offline
-│   └── themeStore.ts           # Store Zustand de tema visual
-├── types/
-│   └── cinema.ts               # Interfaces TypeScript (DTOs, ChatMessage, Temas)
-├── App.tsx                     # Componente raíz
-├── index.css                   # Estilos globales de Tailwind CSS v4
-└── main.tsx                    # Montaje de la aplicación React
+movie-react/
+├── .agents/                    # Agent workflows and guidelines
+├── src/
+│   ├── components/
+│   │   ├── chat/
+│   │   │   ├── ChatFeed.tsx    # Message container and auto-scroller
+│   │   │   ├── ChatInput.tsx   # Textarea, genre preset chips, and keyboard shortcuts
+│   │   │   ├── ChatMessage.tsx # Message cards with Markdown tables and copy button
+│   │   │   └── QuickPrompts.tsx# Quick inquiry suggestion cards
+│   │   └── common/
+│   │       ├── Header.tsx      # Top navigation with title, status pill, and theme toggle
+│   │       ├── StatusBadge.tsx # Real-time online/offline indicator badge
+│   │       └── ThemeToggle.tsx # Light, Dark, and System appearance switcher
+│   ├── lib/
+│   │   └── utils.ts            # Class merging utility (clsx + tailwind-merge)
+│   ├── services/
+│   │   └── cinemaApi.ts        # Typed Axios client interacting with Spring AI
+│   ├── stores/
+│   │   ├── chatStore.ts        # Zustand store managing chat messages and standby fallback
+│   │   └── themeStore.ts       # Zustand store managing theme state & HTML root synchronization
+│   ├── types/
+│   │   └── cinema.ts           # DTOs, ChatMessage, QuickSuggestion, and ThemeMode types
+│   ├── App.tsx                 # Root layout container
+│   ├── index.css               # Global stylesheet and Tailwind directives
+│   └── main.tsx                # React DOM entry point
+├── .env                        # Local environment variables
+├── .env.example                # Example environment template
+├── .gitignore                  # Git ignore rules
+├── AGENTS.md                   # AI agent architecture guidelines and engineering rules
+├── README.md                   # User and developer documentation
+└── vite.config.ts              # Vite plugins, path aliases (@ -> src), and API proxy
 ```
 
 ---
 
-## 💡 Atajos de Teclado y Consejos de Uso
+## 💡 Keyboard Shortcuts & Usage Tips
 
-- **`Enter`**: Enviar mensaje al asistente.
-- **`Shift + Enter`**: Salto de línea dentro del campo de texto.
-- **Botón Preferences**: Despliega etiquetas de géneros preconfigurados (*Sci-Fi*, *Action*, *Animation*, etc.) para guiar las recomendaciones de la IA.
-- **Copiar Respuesta**: Cada mensaje del asistente incluye un botón para copiar el texto formateado al portapapeles.
+- **`Enter`**: Submit prompt to assistant.
+- **`Shift + Enter`**: Add a newline inside the prompt textarea.
+- **Preferences Button**: Toggle predefined genre chips (*Sci-Fi*, *Action*, *Animation*, etc.) to bias AI recommendations.
+- **Copy Response**: Click the clipboard icon on any assistant message to copy formatted Markdown text.
 
 ---
 
-## 👤 Autor & Créditos
+## 👤 Author & Related Projects
 
-Desarrollado por **[Jhon Duarte](https://github.com/jhonduarte7)** como parte del ecosistema Cinema MCP.
+Developed by **[Jhon Duarte](https://github.com/jhonduarte7)** as part of the Cinema MCP ecosystem:
+- [cinema-mcp-client](https://github.com/jhonduarte7/cinema-mcp-client)
+- [movie-mcp-server](https://github.com/jhonduarte7/movie-mcp-server)
